@@ -7,7 +7,7 @@ type Props = {
 const Footer = ({ author }: Props) => {
     return (
         <div className="footer">
-            <span>Copyright &copy; {author}</span>
+            <span>Copyright &copy; {author}.</span>
         </div>
     );
 };

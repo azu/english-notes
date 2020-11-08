@@ -34,7 +34,7 @@ const getConfig = (): Config => {
 
 const getResponse = async (request: Request): Promise<Response> => {
     try {
-        if (request.url.startsWith("/assets")) {
+        if (new URL(request.url).pathname.startsWith("/assets")) {
             return fetch(request.url);
         }
         const config = getConfig();

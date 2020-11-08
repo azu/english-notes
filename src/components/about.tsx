@@ -10,9 +10,10 @@ const About = ({ iconURL, gitHubURL, twitterURL }: Props) => {
     return (
         <div className="about">
             <div className="profile">
-                <img src={`${iconURL}`} width="105px" height="105px" alt="icon" />
-                <aside>
-                    <p>@azu</p>
+                <img src={`${iconURL}`} width="105px" height="105px" alt="" />
+                <aside className={"profile-note"}>
+                    <p className={"profile-name"}>@azu</p>
+                    <p>何かを勉強している</p>
                     <ul>
                         <li>
                             <a href={twitterURL}>Twitter</a>
