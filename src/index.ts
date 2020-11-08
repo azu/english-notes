@@ -27,7 +27,8 @@ const getConfig = (): Config => {
         github: {
             accessToken,
             repository: "azu/english-notes",
-            author: "azu"
+            author: "azu",
+            label: "publish"
         }
     };
 };
