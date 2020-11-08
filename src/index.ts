@@ -28,7 +28,7 @@ const getConfig = (): Config => {
             accessToken,
             repository: "azu/english-notes",
             author: "azu",
-            label: "publish"
+            label: "public"
         }
     };
 };
