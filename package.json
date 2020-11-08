@@ -14,6 +14,7 @@
   "license": "MIT",
   "author": "azu <azuciao@gmail.com>",
   "scripts": {
+    "build": "BUILD_DATE=`date '+%Y-%m-%dT%H:%M:%S%z'` wrangler build --env=production",
     "dev": "BUILD_DATE=`date '+%Y-%m-%dT%H:%M:%S%z'` wrangler preview --watch",
     "clean": "rimraf dist worker",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\""
