@@ -29,3 +29,9 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           BUILD_DATE: ${{ steps.date.outputs.BUILD_DATE }}
+      - name: Purge Cache
+        run: |
+          curl -H "github_token: ${GITHUB_TOKEN}" -H "last_build_time: ${last_build_time}" https://english-notes.jser.workers.dev/_prune_cache
+        eng:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          BUILD_DATE: ${{ steps.date.outputs.BUILD_DATE }}

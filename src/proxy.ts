@@ -1,6 +1,15 @@
 import { handleRequest as handleOriginRequest } from "./router";
 import { Config } from "./types";
 
+const purgeCacheAll = async () => {
+    const currentCaches = caches.default;
+    const keys = await currentCaches.keys();
+    return Promise.all(
+        keys.map((key) => {
+            return currentCaches.delete(key);
+        })
+    );
+};
 /**
  * Use Cloudflare Workers Cache API
  */
@@ -35,4 +44,4 @@ const handleRequest = async (uri: string, config: Config): Promise<Response> => 
     }
 };
 
-export { handleRequest };
+export { handleRequest, purgeCacheAll };
