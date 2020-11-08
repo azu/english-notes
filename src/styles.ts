@@ -98,7 +98,6 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    line-height: 1;
     color: var(--nc-tx-1);
     padding-top: .875rem;
 }
@@ -590,17 +589,6 @@ section > h2 {
     color: #3273dc;
 }
 
-.entry-content h1 {
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-}
-
-.entry-content h2,
-.entry-content h3,
-.entry-content h4 {
-    margin-top: 1.2em;
-    margin-bottom: 0.5em;
-}
 `;
 
 const getStyles = (): string => styles;
