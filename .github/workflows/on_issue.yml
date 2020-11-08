@@ -1,4 +1,4 @@
-name: Purge Cache
+name: Deploy on Issue
 on:
   issues:
     types:
