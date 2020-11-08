@@ -37,22 +37,18 @@ const getResponse = async (request: Request): Promise<Response> => {
     try {
         const config = getConfig();
         // version
-        const versionURL = `${config.site.siteURL}/_increment_version`;
-        const versionResponse = await caches.default.match(versionURL);
-        const version = Number(versionResponse ? versionResponse.headers.get("english-notes-version") : "0");
+        const versionURL = `${config.site.siteURL}/_purge_cache`;
         if (request.url === versionURL && request.headers.get("github_token") === config.github.accessToken) {
-            const newVersion = version + 1;
-            const versionUpResponse = new Response(String(newVersion), {
+            await caches.default.delete(config.site.lastBuildDate);
+            console.log("Delete Cache: " + config.site.lastBuildDate);
+            return new Response("ok", {
                 status: 200,
                 headers: {
-                    "content-type": "text/plain",
-                    "english-notes-version": String(newVersion)
+                    "content-type": "text/plain"
                 }
             });
-            await caches.default.put(versionURL, versionUpResponse.clone());
-            return versionUpResponse;
         }
-        return handleRequest(request.url, config, version);
+        return handleRequest(request.url, config);
     } catch (e) {
         return new Response(e.message, {
             status: 500,

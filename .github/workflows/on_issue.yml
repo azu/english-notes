@@ -12,6 +12,6 @@ jobs:
     steps:
       - name: Purge Cache
         run: |
-          curl -H "github_token: ${GITHUB_TOKEN}" "https://english-notes.jser.workers.dev/_increment_version"
+          curl -H "github_token: ${GITHUB_TOKEN}" "https://english-notes.jser.workers.dev/_purge_cache"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

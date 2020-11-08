@@ -4,11 +4,10 @@ import { Config } from "./types";
 /**
  * Use Cloudflare Workers Cache API
  */
-const handleRequest = async (uri: string, config: Config, version: number): Promise<Response> => {
-    const currentCaches = await caches.open(config.site.lastBuildDate + "__v" + version);
+const handleRequest = async (uri: string, config: Config): Promise<Response> => {
+    const currentCaches = await caches.open(config.site.lastBuildDate);
+    console.log("currentCaches", currentCaches);
     const cacheKey = uri;
-    console.log("version", version);
-    console.log("cacheKey", cacheKey);
     const cache = await currentCaches.match(cacheKey);
     if (cache) {
         console.log("Cache Hit!", cacheKey);
