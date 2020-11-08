@@ -1,19 +1,20 @@
 import { handleRequest as handleOriginRequest } from "./router";
 import { Config } from "./types";
 
-const _caches = caches.open(process.env.BUILD_DATE!);
 /**
  * Use Cloudflare Workers Cache API
  */
 const handleRequest = async (uri: string, config: Config): Promise<Response> => {
     // FIXME: It make response slow 10x
-    const currentCaches = await _caches;
+    const currentCaches = await caches.open(config.site.lastBuildDate);
     const cacheKey = uri;
     const cache = await currentCaches.match(cacheKey);
     if (cache) {
+        console.log("Cache Hit!", cacheKey);
         return cache; // use cache
     }
     try {
+        console.log("Create new Response");
         const response = await handleOriginRequest(uri, config);
         // put cache if contents exists
         if (response.status === 200) {
