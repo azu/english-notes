@@ -93,7 +93,7 @@ const getIssues = async (github: GitHub): Promise<Issue[]> => {
     }
 
     // sort title desc
-    return issues.sort((a, b) => (a.title > b.title ? -1 : 1));
+    return issues.sort((a, b) => (a.id > b.id ? -1 : 1));
 };
 
 const getIssue = async (issueId: number, github: GitHub): Promise<Issue | null> => {
