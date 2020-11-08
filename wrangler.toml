@@ -1,8 +1,9 @@
-name = "english-notes"
 type = "webpack"
 webpack_config = "webpack.config.js"
 account_id = "020f099028cabbcf02f27b4e6b39cbfc"
 [env.dev]
+name = "english-notes-dev"
 workers_dev = true
 [env.production]
+name = "english-notes"
 workers_dev = true
