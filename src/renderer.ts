@@ -39,8 +39,7 @@ const renderFeed = async (config: Config): Promise<string> => {
 };
 
 const renderRobots = (): string => {
-    return `User-agent: *
-  Disallow:`;
+    return ``;
 };
 
 const renderNotFound = (config: Config): string => {
