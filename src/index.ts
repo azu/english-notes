@@ -39,7 +39,7 @@ const getResponse = async (request: Request): Promise<Response> => {
         // version
         const versionURL = `${config.site.siteURL}/_purge_cache`;
         if (request.url === versionURL && request.headers.get("github_token") === config.github.accessToken) {
-            await caches.default.delete(config.site.lastBuildDate);
+            await caches.delete(config.site.lastBuildDate);
             console.log("Delete Cache: " + config.site.lastBuildDate);
             return new Response("ok", {
                 status: 200,
