@@ -3,7 +3,9 @@ import { Config } from "./types";
 
 const purgeCacheAll = async () => {
     const currentCaches = caches.default;
+    console.log("Try to Purge");
     const keys = await currentCaches.keys();
+    console.log("keys count:", keys.length);
     return Promise.all(
         keys.map((key) => {
             return currentCaches.delete(key);

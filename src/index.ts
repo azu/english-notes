@@ -47,7 +47,7 @@ const getResponse = async (request: Request): Promise<Response> => {
                     });
                 })
                 .catch((error) => {
-                    console.error(error);
+                    console.error(error.message);
                     return new Response("fail", {
                         status: 500,
                         headers: { "content-type": "text/html" }
