@@ -19,7 +19,7 @@ const getConfig = (): Config => {
             lastBuildDate,
             siteURL: "https://github.com/azu",
             repositoryURL: "https://github.com/azu/english-notes",
-            faviconURL: "https://raw.githubusercontent.com/azu/english-notes/master/assets/favicon.ico",
+            faviconURL: "https://raw.githubusercontent.com/azu/english-notes/main/assets/favicon.ico",
             iconURL: "https://github.com/azu.png",
             gitHubURL: "https://github.com/azu",
             twitterURL: "https://twitter.com/azu_re"
