@@ -5,7 +5,7 @@ import { Config } from "./types";
  * Use Cloudflare Workers Cache API
  */
 const handleRequest = async (uri: string, config: Config): Promise<Response> => {
-    // FIXME: It make slow respose
+    // FIXME: It make response slow 10x
     const currentCaches = await caches.open(config.site.lastBuildDate);
     const cacheKey = uri;
     const cache = await currentCaches.match(cacheKey);
