@@ -1,4 +1,4 @@
-name: Deploy on issue
+name: Purge Cache
 on:
   issues:
     types:
@@ -9,29 +9,9 @@ jobs:
   deploy:
     name: Checkout and Deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     steps:
-      - name: Get BUILD_DATE
-        id: date
-        run: echo "::set-output name=BUILD_DATE::$(date '+%a, %d %b %Y %H:%M:%S GMT')"
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      - name: Publish Worker
-        if: github.event.label.name == 'public'
-        uses: cloudflare/wrangler-action@1.3.0
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          environment: 'production'
-          publish: false
-          preCommands: |
-            wrangler build --env=production
-        env:
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          BUILD_DATE: ${{ steps.date.outputs.BUILD_DATE }}
       - name: Purge Cache
         run: |
-          curl -H "github_token: ${GITHUB_TOKEN}" -H "last_build_time: ${BUILD_DATE}" "https://english-notes.jser.workers.dev/_prune_cache"
+          curl -H "github_token: ${GITHUB_TOKEN}" "https://english-notes.jser.workers.dev/_increment_version"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          BUILD_DATE: ${{ steps.date.outputs.BUILD_DATE }}

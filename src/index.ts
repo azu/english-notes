@@ -10,14 +10,14 @@ const getConfig = (): Config => {
     if (!accessToken) {
         throw new Error("GITHUB_TOKEN must be required.");
     }
-
+    const siteURL = process.env.SITE_URL || "https://english-notes.jser.workers.dev";
     return {
         site: {
             title: "English Notes",
             description: "GitHub英語のメモ",
             author: "Azu",
             lastBuildDate,
-            siteURL: "https://github.com/azu",
+            siteURL: siteURL,
             repositoryURL: "https://github.com/azu/english-notes",
             faviconURL: "https://raw.githubusercontent.com/azu/english-notes/main/assets/favicon.ico",
             iconURL: "https://github.com/azu.png",
@@ -36,7 +36,20 @@ const getConfig = (): Config => {
 const getResponse = async (request: Request): Promise<Response> => {
     try {
         const config = getConfig();
-        return handleRequest(request.url, config);
+        // version
+        const versionURL = `${config.site.siteURL}/_increment_version`;
+        const versionResponse = await caches.default.match(versionURL);
+        let version = Number(versionResponse ? await versionResponse?.text() : "0");
+        if (request.url === versionURL && request.headers.get("github_token") === config.github.accessToken) {
+            version += 1;
+            const versionUpResponse = new Response(String(version), {
+                status: 200,
+                headers: { "content-type": "text/plain" }
+            });
+            await caches.default.put(versionURL, versionUpResponse.clone());
+            return versionUpResponse;
+        }
+        return handleRequest(request.url, config, version);
     } catch (e) {
         return new Response(e.message, {
             status: 500,
