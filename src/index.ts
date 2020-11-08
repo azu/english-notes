@@ -39,10 +39,10 @@ const getResponse = async (request: Request): Promise<Response> => {
         // version
         const versionURL = `${config.site.siteURL}/_increment_version`;
         const versionResponse = await caches.default.match(versionURL);
-        let version = Number(versionResponse ? await versionResponse?.text() : "0");
+        const version = Number(versionResponse ? await versionResponse.text() : "0");
         if (request.url === versionURL && request.headers.get("github_token") === config.github.accessToken) {
-            version += 1;
-            const versionUpResponse = new Response(String(version), {
+            const newVersion = version + 1;
+            const versionUpResponse = new Response(String(newVersion), {
                 status: 200,
                 headers: { "content-type": "text/plain" }
             });
