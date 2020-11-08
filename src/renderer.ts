@@ -20,7 +20,11 @@ const renderIndex = async (config: Config): Promise<string> => {
 const renderArchive = async (config: Config): Promise<string> => {
     const issues = await getIssues(config.github);
     const content = ReactDOMServer.renderToString(React.createElement(Archive, { issues, site: config.site }));
-    return toHTML({ site: config.site, content: content });
+    return toHTML({
+        site: config.site,
+        contentTitle: "Archives",
+        content: content
+    });
 };
 
 const renderShow = async (issueId: number, config: Config): Promise<string> => {
@@ -29,7 +33,12 @@ const renderShow = async (issueId: number, config: Config): Promise<string> => {
         throw new NotFoundError();
     }
     const content = ReactDOMServer.renderToString(React.createElement(Show, { issue, site: config.site }));
-    return toHTML({ site: config.site, content: content, additionalHead: `<style>${getMarkdownStyles()}</style>` });
+    return toHTML({
+        site: config.site,
+        content: content,
+        contentTitle: issue.title,
+        additionalHead: `<style>${getMarkdownStyles()}</style>`
+    });
 };
 
 const renderFeed = async (config: Config): Promise<string> => {
@@ -49,10 +58,11 @@ const renderNotFound = (config: Config): string => {
 interface ToHTMLParams {
     site: Site;
     content: string;
+    contentTitle?: string;
     additionalHead?: string;
 }
 
-const toHTML = ({ site, content, additionalHead }: ToHTMLParams): string => {
+const toHTML = ({ site, content, contentTitle, additionalHead }: ToHTMLParams): string => {
     const styles = getStyles();
     const html = `<!DOCTYPE html>
   <html lang="ja">
@@ -60,7 +70,7 @@ const toHTML = ({ site, content, additionalHead }: ToHTMLParams): string => {
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width" />
       <meta name="description" content="${site.description}">
-      <title>${site.title}</title>
+      <title>${contentTitle ? `${contentTitle} - ${site.title}` : site.title}</title>
       <link rel="alternate" type="application/atom+xml" href="/feed.xml" />
       <link rel="icon" href="${site.faviconURL}" />
       <style>${styles}</style>
