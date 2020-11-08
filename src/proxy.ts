@@ -1,22 +1,12 @@
 import { handleRequest as handleOriginRequest } from "./router";
 import { Config } from "./types";
 
-const purgeCacheAll = async () => {
-    const currentCaches = caches.default;
-    console.log("Try to Purge");
-    const keys = await currentCaches.keys();
-    console.log("keys count:", keys.length);
-    return Promise.all(
-        keys.map((key) => {
-            return currentCaches.delete(key);
-        })
-    );
-};
 /**
  * Use Cloudflare Workers Cache API
  */
 const handleRequest = async (uri: string, config: Config): Promise<Response> => {
-    const currentCaches = caches.default;
+    // FIXME: It make slow respose
+    const currentCaches = await caches.open(config.site.lastBuildDate);
     const cacheKey = uri;
     const cache = await currentCaches.match(cacheKey);
     if (cache) {
@@ -46,4 +36,4 @@ const handleRequest = async (uri: string, config: Config): Promise<Response> => 
     }
 };
 
-export { handleRequest, purgeCacheAll };
+export { handleRequest };

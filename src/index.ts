@@ -1,4 +1,4 @@
-import { handleRequest, purgeCacheAll } from "./proxy";
+import { handleRequest } from "./proxy";
 import { Config } from "./types";
 
 const getConfig = (): Config => {
@@ -35,25 +35,6 @@ const getConfig = (): Config => {
 const getResponse = async (request: Request): Promise<Response> => {
     try {
         const config = getConfig();
-        const canPurge =
-            new URL(request.url).pathname === "/_prune_cache" &&
-            request.headers.get("github_token") === config.github.accessToken;
-        if (canPurge) {
-            return purgeCacheAll()
-                .then(() => {
-                    return new Response("ok", {
-                        status: 200,
-                        headers: { "content-type": "text/html" }
-                    });
-                })
-                .catch((error) => {
-                    console.error(error.message);
-                    return new Response("fail", {
-                        status: 500,
-                        headers: { "content-type": "text/html" }
-                    });
-                });
-        }
         return handleRequest(request.url, config);
     } catch (e) {
         return new Response(e.message, {
