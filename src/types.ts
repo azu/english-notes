@@ -31,6 +31,7 @@ export interface Issue {
     labels: string[];
     url: string;
     pubDate: string;
+    commentsTotalCount: number;
 }
 
 interface LabelNode {
@@ -46,6 +47,9 @@ export interface IssueNode {
     labels: { nodes: LabelNode[] };
     url: string;
     createdAt: string;
+    comments: {
+        totalCount: number;
+    };
 }
 
 interface Edge {

@@ -21,6 +21,9 @@ const ISSUES_QUERY = `
             },
             url,
             createdAt
+            comments(first: 1){
+              totalCount
+            }
           }
         }
       },
@@ -55,7 +58,10 @@ query issue($owner: String!, $repo: String!, $id: Int!) {
         }
       }
       url
-      createdAt
+      createdAt,
+      comments(first: 1){
+        totalCount
+      }
     }
   }
 }
@@ -110,7 +116,8 @@ const nodeToIssue = (node: IssueNode): Issue => {
         bodyText: node.bodyText,
         labels: node.labels.nodes.map((n) => n.name),
         url: node.url,
-        pubDate
+        pubDate,
+        commentsTotalCount: node.comments.totalCount
     };
 };
 
