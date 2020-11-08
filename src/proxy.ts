@@ -23,7 +23,7 @@ const handleRequest = async (uri: string, config: Config): Promise<Response> => 
                 headers: { "content-type": response.contentType }
             });
             // Avoid Error: "Body has already been used. It can only be used once. Use tee() first if you need to read it twice."
-            await caches.default.put(cacheKey, actualResponse.clone());
+            await currentCaches.put(cacheKey, actualResponse.clone());
             return actualResponse;
         }
         return new Response(response.response, {
