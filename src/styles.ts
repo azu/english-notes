@@ -447,6 +447,12 @@ img {
     align-items: center;
 }
 
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column
+  }
+}
+
 .header-title {
     flex: 1;
     font-size: 1.5em;
