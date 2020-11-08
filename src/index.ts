@@ -20,7 +20,7 @@ const getConfig = (): Config => {
             siteURL: siteURL,
             repositoryURL: "https://github.com/azu/english-notes",
             faviconURL: "https://raw.githubusercontent.com/azu/english-notes/main/assets/favicon.ico",
-            iconURL: "https://github.com/azu.png",
+            iconURL: "https://avatars1.githubusercontent.com/u/19714?v=4",
             gitHubURL: "https://github.com/azu",
             twitterURL: "https://twitter.com/azu_re"
         },
