@@ -1,7 +1,7 @@
 const styles = `
 /* Common */
 :root {
-    --nc-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --nc-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --nc-font-mono: Consolas, monaco, 'Ubuntu Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
 
     /* Light theme */
@@ -89,12 +89,6 @@ body {
     color: var(--nc-tx-2);
     font-size: 1.03rem;
     line-height: 1.5;
-}
-
-::selection {
-    /* Set background color for selected text */
-    background: var(--nc-ac-1);
-    color: var(--nc-ac-tx);
 }
 
 h1, h2, h3, h4, h5, h6 {
