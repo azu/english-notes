@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   deploy:
-    name: Checkout and Deploy
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Get BUILD_DATE
