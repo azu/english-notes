@@ -1,9 +1,10 @@
-name: Deploy on labeled/unlabeled issue
+name: Deploy on issue
 on:
   issues:
     types:
       - labeled
       - unlabeled
+      - edited
 jobs:
   deploy:
     name: Checkout and Deploy
@@ -28,9 +29,3 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BUILD_DATE: ${{ steps.date.outputs.BUILD_DATE }}
-      - name: Create Cache
-        run: |
-          echo "warm"
-#          curl -D - -s -o /dev/null https://waka.dev
-#          curl -D - -s -o /dev/null https://waka.dev/archive
-#          curl -D - -s -o /dev/null https://waka.dev/feed.xml

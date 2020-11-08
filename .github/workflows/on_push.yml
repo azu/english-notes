@@ -1,8 +1,8 @@
-name: Deploy on push master
+name: Deploy on push
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   deploy:
     name: Checkout and Deploy
@@ -19,18 +19,9 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           environment: 'production'
-          postCommands: |
-            echo "*** Clear cache ***"
-            wrangler kv:key list --binding=CACHED_RESPONSE --env=production | xargs -0 -i node -pe 'JSON.stringify({}.map(a => { return {"key": a.name, "value": ""}; }))' > cache.json
-            echo "y"|wrangler kv:bulk delete --env=production --binding=CACHED_RESPONSE cache.json
-            echo "******"
+          preCommands: |
+            wrangler build --env=production
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BUILD_DATE: ${{ steps.date.outputs.BUILD_DATE }}
-      - name: Create Cache
-        run: |
-          curl -D - -s -o /dev/null https://waka.dev
-          curl -D - -s -o /dev/null https://waka.dev/archive
-          curl -D - -s -o /dev/null https://waka.dev/feed.xml
