@@ -5,6 +5,8 @@ on:
       - labeled
       - unlabeled
       - edited
+      - opened
+      - deleted
 jobs:
   deploy:
     name: Checkout and Deploy
