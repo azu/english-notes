@@ -6,7 +6,6 @@ import { Config } from "./types";
  */
 const handleRequest = async (uri: string, config: Config): Promise<Response> => {
     const currentCaches = await caches.open(config.site.lastBuildDate);
-    console.log("currentCaches", currentCaches);
     const cacheKey = uri;
     const cache = await currentCaches.match(cacheKey);
     if (cache) {

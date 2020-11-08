@@ -36,18 +36,6 @@ const getConfig = (): Config => {
 const getResponse = async (request: Request): Promise<Response> => {
     try {
         const config = getConfig();
-        // version
-        const versionURL = `${config.site.siteURL}/_purge_cache`;
-        if (request.url === versionURL && request.headers.get("github_token") === config.github.accessToken) {
-            await caches.delete(config.site.lastBuildDate);
-            console.log("Delete Cache: " + config.site.lastBuildDate);
-            return new Response("ok", {
-                status: 200,
-                headers: {
-                    "content-type": "text/plain"
-                }
-            });
-        }
         return handleRequest(request.url, config);
     } catch (e) {
         return new Response(e.message, {
