@@ -5,7 +5,7 @@ import { Config } from "./types";
  * Use Cloudflare Workers Cache API
  */
 const handleRequest = async (uri: string, config: Config): Promise<Response> => {
-    const currentCaches = await caches.open(config.site.lastBuildDate);
+    const currentCaches = caches.default;
     const cacheKey = uri;
     const cache = await currentCaches.match(cacheKey);
     if (cache) {
