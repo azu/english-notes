@@ -1,67 +1,73 @@
 export interface Site {
-  title: string,
-  description: string,
-  author: string,
-  lastBuildDate: string,
-  siteURL: string,
-  faviconURL: string,
-  iconURL: string
-};
+    title: string;
+    description: string;
+    author: string;
+    lastBuildDate: string;
+    siteURL: string;
+    repositoryURL: string;
+    faviconURL: string;
+    iconURL: string;
+    gitHubURL: string;
+    twitterURL: string;
+}
 
 export interface GitHub {
-  accessToken: string,
-  repository: string,
-  author: string,
-  label?: string/* if you want filtering by label */
-};
+    accessToken: string;
+    repository: string;
+    author: string;
+    label?: string /* if you want filtering by label */;
+}
 
 export interface Config {
-  site: Site,
-  github: GitHub
-};
+    site: Site;
+    github: GitHub;
+}
 
 export interface Issue {
-  title: string,
-  bodyHTML: string,
-  bodyText: string,
-  labels: string[],
-  url: string,
-  pubDate: string
-};
+    id: number;
+    title: string;
+    bodyHTML: string;
+    bodyText: string;
+    labels: string[];
+    url: string;
+    pubDate: string;
+}
 
 interface LabelNode {
-  name: string
-};
+    name: string;
+}
 
 export interface IssueNode {
-  title: string,
-  bodyHTML: string,
-  bodyText: string,
-  labels: { nodes: LabelNode[] }
-  url: string,
-  createdAt: string
-};
+    // issue id
+    number: number;
+    title: string;
+    bodyHTML: string;
+    bodyText: string;
+    labels: { nodes: LabelNode[] };
+    url: string;
+    createdAt: string;
+}
 
 interface Edge {
-  node: IssueNode
+    node: IssueNode;
 }
 
 export interface PageInfo {
-  endCursor: string | null,
-  hasNextPage: boolean
-};
+    endCursor: string | null;
+    hasNextPage: boolean;
+}
 
 export interface IssuesResponse {
-  search: {
-    edges: Edge[],
-    pageInfo: PageInfo
-  }
-};
+    search: {
+        edges: Edge[];
+        pageInfo: PageInfo;
+    };
+}
 
 export interface IssueResponse {
-  search: {
-    edges: Edge[]
-  }
-};
+    repository: {
+        issue: IssueNode;
+    };
+}
 
-export type Response = { contentType: string, response: string, status: number };
+export type Response = { contentType: string; response: string; status: number };

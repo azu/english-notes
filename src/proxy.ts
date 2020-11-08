@@ -1,25 +1,37 @@
-import { handleRequest as handleOriginRequest } from './router';
-import { Config, Response } from './types';
-
-declare const CACHED_RESPONSE: KVNamespace;
+import { handleRequest as handleOriginRequest } from "./router";
+import { Config } from "./types";
 
 /**
- * Use Cloudflare Workers KV Namespace.
+ * Use Cloudflare Workers Cache API
  */
 const handleRequest = async (uri: string, config: Config): Promise<Response> => {
-  const cacheKey = (new URL(uri)).pathname;
-  const cache: Response | null = await CACHED_RESPONSE.get(cacheKey, 'json');
-  if (cache) {
-    return cache; // use cache
-  }
-
-  const response = await handleOriginRequest(uri, config);
-  // put cache if contents exists
-  if (response.status === 200) {
-    await CACHED_RESPONSE.put(cacheKey, JSON.stringify(response));
-  }
-
-  return response;
+    const cacheKey = new URL(uri).pathname;
+    const cache = await caches.default.match(cacheKey);
+    if (cache) {
+        return cache; // use cache
+    }
+    try {
+        const response = await handleOriginRequest(uri, config);
+        // put cache if contents exists
+        if (response.status === 200) {
+            const actualResponse = new Response(response.response, {
+                status: response.status,
+                headers: { "content-type": response.contentType }
+            });
+            // Avoid Error: "Body has already been used. It can only be used once. Use tee() first if you need to read it twice."
+            await caches.default.put(cacheKey, actualResponse.clone());
+            return actualResponse;
+        }
+        return new Response(response.response, {
+            status: response.status,
+            headers: { "content-type": response.contentType }
+        });
+    } catch (error) {
+        return new Response(error.message, {
+            status: 500,
+            headers: { "content-type": "text/html" }
+        });
+    }
 };
 
 export { handleRequest };

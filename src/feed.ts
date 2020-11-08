@@ -1,15 +1,17 @@
-import { Issue, Site } from './types';
+import { Issue, Site } from "./types";
 
 const getFeed = (issues: Issue[], site: Site): string => {
-  const items = issues.map(issue => {
-    return `<item>
+    const items = issues
+        .map((issue) => {
+            return `<item>
       <title><![CDATA[${issue.title}]]></title>
       <description><![CDATA[${issue.bodyHTML}]]></description>
-      <link>${site.siteURL}/entry/${issue.title}</link>
+      <link>${site.siteURL}/entry/${issue.id}</link>
       <pubDate>${issue.pubDate}</pubDate>
     </item>`;
-  }).join('');
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+        })
+        .join("");
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
   <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:content="http://purl.org/rss/1.0/modules/content/">
@@ -22,7 +24,7 @@ const getFeed = (issues: Issue[], site: Site): string => {
       ${items}
     </channel>
   </rss>`;
-  return xml;
+    return xml;
 };
 
 export { getFeed };

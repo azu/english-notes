@@ -30,6 +30,18 @@ const styles = `
   /* Header */
   .header {
     width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .header-title {
+    flex: 1;
+    font-size: 1.5em;
+    padding-left: 20px;
+    font-family: 'Frank Ruhl Libre',serif;
+  }
+  .header-title > a {
+    color: #4a4a4a;
+    text-decoration: none;
   }
   .navbar {
     display: flex;
@@ -56,18 +68,11 @@ const styles = `
     background-color: #fafafa;
     color: #3273dc;
   }
-  .header > h1 {
-    margin: 20px 0;
-    padding: 0;
-    font-family: 'Frank Ruhl Libre',serif;
-    font-size: 5em;
-    font-weight: 400;
+  /* Index */
+  .Index-Title {
     text-align: center;
   }
-  .header > h1 > a {
-    color: #363636;
-    text-decoration: none;
-  }
+  
   /* About */
   .profile {
     display: flex;
@@ -106,7 +111,12 @@ const styles = `
   }
   section > h2 {
     margin-bottom: 30px;
-    font-family: 游明朝,Yu Mincho,YuMincho,Hiragino Mincho ProN,Hiragino Mincho Pro,HGS明朝E,メイリオ,Meiryo,serif;
+    font-family: "Helvetica Neue",
+    "Segoe UI",
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
     font-size: 1.6em;
     font-weight: 600;
   }
@@ -116,6 +126,10 @@ const styles = `
   }
   .entries-item h3 {
     margin-bottom: .8em;
+  }
+  .entries-item h3::before {
+    content: "📝";
+    padding-right: 0.5em;
   }
   .entries-item h3 a {
     color: #4a4a4a;
@@ -133,7 +147,12 @@ const styles = `
     text-align: center;
   }
   .entry-title h1 {
-    font-family: 游明朝,Yu Mincho,YuMincho,Hiragino Mincho ProN,Hiragino Mincho Pro,HGS明朝E,メイリオ,Meiryo,serif;
+    font-family: "Helvetica Neue",
+    "Segoe UI",
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
     font-size: 2em;
     font-weight: 700;
   }

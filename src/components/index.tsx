@@ -1,33 +1,27 @@
-import React from 'react';
-import Layout from './layout';
-import About from './about';
-import Entries from './entries';
-import Entry from './entry';
-import { Issue, Site } from '../types';
+import React from "react";
+import Layout from "./layout";
+import About from "./about";
+import Entries from "./entries";
+import { Issue, Site } from "../types";
 
 type Props = {
-  issues: Issue[],
-  site: Site
+    issues: Issue[];
+    site: Site;
 };
 
 const Index = ({ issues, site }: Props) => {
-  const issue = issues.splice(0, 1)[0];
-
-  return (
-    <Layout site={site}>
-      <section>
-        <Entry issue={issue} />
-      </section>
-      <section>
-        <h2>Latests</h2>
-        <Entries issues={issues} />
-      </section>
-      <section>
-        <h2>About</h2>
-        <About iconURL={site.iconURL} />
-      </section>
-    </Layout>
-  );
+    return (
+        <Layout site={site}>
+            <section>
+                <h2 className={"Index-Title"}>Latest</h2>
+                <Entries issues={issues} />
+            </section>
+            <section>
+                <h2>About</h2>
+                <About iconURL={site.iconURL} gitHubURL={site.gitHubURL} twitterURL={site.twitterURL} />
+            </section>
+        </Layout>
+    );
 };
 
 export default Index;

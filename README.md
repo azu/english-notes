@@ -1,3 +1,6 @@
-# waka.dev
+# english-notes
 
-The source of [waka.dev](https://waka.dev).
+
+## Credits
+
+Based on [waka.dev](https://waka.dev).

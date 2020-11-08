@@ -3,7 +3,7 @@
     /* Basic Options */
     "target": "ES2020",
     "module": "commonjs",
-    /*"outDir": "./dist",*/
+    "outDir": "./dist",
     /*"rootDir": "./src",*/
 
     /* Libraries */
