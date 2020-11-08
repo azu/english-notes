@@ -74,7 +74,7 @@ const toHTML = ({ site, content, contentTitle, additionalHead }: ToHTMLParams): 
       <link rel="alternate" type="application/atom+xml" href="/feed.xml" />
       <link rel="icon" href="${site.faviconURL}" />
       <style>${styles}</style>
-      ${additionalHead}
+      ${additionalHead || ""}
     </head>
     <body>${content}</body>
   </html>`;
