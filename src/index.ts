@@ -37,7 +37,6 @@ const getResponse = async (request: Request): Promise<Response> => {
         const config = getConfig();
         const canPurge =
             new URL(request.url).pathname === "/_prune_cache" &&
-            request.headers.get("last_build_time") === config.site.lastBuildDate &&
             request.headers.get("github_token") === config.github.accessToken;
         if (canPurge) {
             return purgeCacheAll()
