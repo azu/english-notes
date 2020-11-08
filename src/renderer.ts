@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { getIssues, getIssue } from "./api_client";
 import { getFeed } from "./feed";
-import { getStyles } from "./styles";
+import { getMarkdownStyles, getStyles } from "./styles";
 import Index from "./components/index";
 import Archive from "./components/archive";
 import Show from "./components/show";
@@ -14,13 +14,13 @@ const renderIndex = async (config: Config): Promise<string> => {
     const content = ReactDOMServer.renderToString(
         React.createElement(Index, { issues: issues.slice(0, 5), site: config.site })
     );
-    return toHTML(config.site, content);
+    return toHTML({ site: config.site, content: content });
 };
 
 const renderArchive = async (config: Config): Promise<string> => {
     const issues = await getIssues(config.github);
     const content = ReactDOMServer.renderToString(React.createElement(Archive, { issues, site: config.site }));
-    return toHTML(config.site, content);
+    return toHTML({ site: config.site, content: content });
 };
 
 const renderShow = async (issueId: number, config: Config): Promise<string> => {
@@ -29,7 +29,7 @@ const renderShow = async (issueId: number, config: Config): Promise<string> => {
         throw new NotFoundError();
     }
     const content = ReactDOMServer.renderToString(React.createElement(Show, { issue, site: config.site }));
-    return toHTML(config.site, content);
+    return toHTML({ site: config.site, content: content, additionalHead: `<style>${getMarkdownStyles()}</style>` });
 };
 
 const renderFeed = async (config: Config): Promise<string> => {
@@ -43,10 +43,16 @@ const renderRobots = (): string => {
 };
 
 const renderNotFound = (config: Config): string => {
-    return toHTML(config.site, "not found");
+    return toHTML({ site: config.site, content: "not found" });
 };
 
-const toHTML = (site: Site, content: string): string => {
+interface ToHTMLParams {
+    site: Site;
+    content: string;
+    additionalHead?: string;
+}
+
+const toHTML = ({ site, content, additionalHead }: ToHTMLParams): string => {
     const styles = getStyles();
     const html = `<!DOCTYPE html>
   <html lang="ja">
@@ -58,6 +64,7 @@ const toHTML = (site: Site, content: string): string => {
       <link rel="alternate" type="application/atom+xml" href="/feed.xml" />
       <link rel="icon" href="${site.faviconURL}" />
       <style>${styles}</style>
+      ${additionalHead}
     </head>
     <body>${content}</body>
   </html>`;
