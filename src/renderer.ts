@@ -52,7 +52,7 @@ const toHTML = (site: Site, content: string): string => {
     const html = `<!DOCTYPE html>
   <html lang="ja">
     <head>
-      <meta httpEquiv="content-type" content="text/html" charSet="utf-8" />
+      <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width" />
       <meta name="description" content="${site.description}">
       <title>${site.title}</title>
