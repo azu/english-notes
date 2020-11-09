@@ -16,7 +16,7 @@ const Entry = ({ issue }: Props) => {
             </div>
             <article className="entry-content markdown-body" dangerouslySetInnerHTML={html} />
             <footer className="entry-footer">
-                <a href={issue.url}>Comment({issue.commentsTotalCount})</a>
+                <a href={issue.url + "#new_comment_field"}>Comments({issue.commentsTotalCount})</a>
             </footer>
         </div>
     );
