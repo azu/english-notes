@@ -37,6 +37,7 @@ const renderShow = async (issueId: number, config: Config): Promise<string> => {
         site: config.site,
         content: content,
         contentTitle: issue.title,
+        contentDescription: issue.bodyText,
         additionalHead: `<style>${getMarkdownStyles()}</style>`
     });
 };
@@ -59,17 +60,18 @@ interface ToHTMLParams {
     site: Site;
     content: string;
     contentTitle?: string;
+    contentDescription?: string;
     additionalHead?: string;
 }
 
-const toHTML = ({ site, content, contentTitle, additionalHead }: ToHTMLParams): string => {
+const toHTML = ({ site, content, contentTitle, contentDescription, additionalHead }: ToHTMLParams): string => {
     const styles = getStyles();
     const html = `<!DOCTYPE html>
   <html lang="ja">
     <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width" />
-      <meta name="description" content="${site.description}">
+      <meta name="description" content="${contentDescription ? contentDescription.slice(0, 300) : site.description}">
       <title>${contentTitle ? `${contentTitle} - ${site.title}` : site.title}</title>
       <link rel="alternate" type="application/atom+xml" href="/feed.xml" />
       <link rel="icon" href="${site.faviconURL}" />
