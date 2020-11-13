@@ -8,6 +8,7 @@ import Archive from "./components/archive";
 import Show from "./components/show";
 import { NotFoundError } from "./errors";
 import { Config, Site } from "./types";
+import escapeHtml from "escape-html";
 
 const renderIndex = async (config: Config): Promise<string> => {
     const issues = await getIssues(config.github);
@@ -71,7 +72,9 @@ const toHTML = ({ site, content, contentTitle, contentDescription, additionalHea
     <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width" />
-      <meta name="description" content="${contentDescription ? contentDescription.slice(0, 300) : site.description}">
+      <meta name="description" content="${escapeHtml(
+          contentDescription ? contentDescription.slice(0, 300) : site.description
+      )}">
       <title>${contentTitle ? `${contentTitle} - ${site.title}` : site.title}</title>
       <link rel="alternate" type="application/atom+xml" href="/feed.xml" />
       <link rel="icon" href="${site.faviconURL}" />

@@ -21,12 +21,14 @@
   },
   "dependencies": {
     "@octokit/graphql": "^4.5.6",
+    "escape-html": "^1.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^2.0.0",
     "@cloudflare/wrangler": "^1.12.2",
+    "@types/escape-html": "^1.0.0",
     "@types/node": "^14.10.1",
     "@types/react": "^16.9.50",
     "@types/react-dom": "^16.9.8",
