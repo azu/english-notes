@@ -26,5 +26,5 @@ jobs:
             wrangler build --env=production
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BUILD_DATE: ${{ steps.date.outputs.BUILD_DATE }}
